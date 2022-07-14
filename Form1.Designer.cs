@@ -35,6 +35,15 @@
             this.userScanButton = new System.Windows.Forms.Button();
             this.reviewScanButton = new System.Windows.Forms.Button();
             this.createReportButton = new System.Windows.Forms.Button();
+            this.addUserButton = new System.Windows.Forms.Button();
+            this.addReviewButton = new System.Windows.Forms.Button();
+            this.saveUsersButton = new System.Windows.Forms.Button();
+            this.saveUsersTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.saveReviewsButton = new System.Windows.Forms.Button();
+            this.saveReviewsTextBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.debugButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -104,11 +113,106 @@
             this.createReportButton.UseVisualStyleBackColor = true;
             this.createReportButton.Click += new System.EventHandler(this.createReportButton_Click);
             // 
+            // addUserButton
+            // 
+            this.addUserButton.Location = new System.Drawing.Point(26, 172);
+            this.addUserButton.Name = "addUserButton";
+            this.addUserButton.Size = new System.Drawing.Size(259, 23);
+            this.addUserButton.TabIndex = 7;
+            this.addUserButton.Text = "Изменить посетителей";
+            this.addUserButton.UseVisualStyleBackColor = true;
+            this.addUserButton.Click += new System.EventHandler(this.addUserButton_Click);
+            // 
+            // addReviewButton
+            // 
+            this.addReviewButton.Location = new System.Drawing.Point(26, 201);
+            this.addReviewButton.Name = "addReviewButton";
+            this.addReviewButton.Size = new System.Drawing.Size(259, 23);
+            this.addReviewButton.TabIndex = 8;
+            this.addReviewButton.Text = "Изменить отзывы";
+            this.addReviewButton.UseVisualStyleBackColor = true;
+            this.addReviewButton.Click += new System.EventHandler(this.addReviewButton_Click);
+            // 
+            // saveUsersButton
+            // 
+            this.saveUsersButton.Location = new System.Drawing.Point(547, 430);
+            this.saveUsersButton.Name = "saveUsersButton";
+            this.saveUsersButton.Size = new System.Drawing.Size(130, 23);
+            this.saveUsersButton.TabIndex = 9;
+            this.saveUsersButton.Text = "Сохранить";
+            this.saveUsersButton.UseVisualStyleBackColor = true;
+            this.saveUsersButton.Click += new System.EventHandler(this.saveUsersButton_Click);
+            // 
+            // saveUsersTextBox
+            // 
+            this.saveUsersTextBox.Location = new System.Drawing.Point(320, 431);
+            this.saveUsersTextBox.Name = "saveUsersTextBox";
+            this.saveUsersTextBox.Size = new System.Drawing.Size(200, 22);
+            this.saveUsersTextBox.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(21, 427);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(259, 25);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Сохранить посетителей в ";
+            // 
+            // saveReviewsButton
+            // 
+            this.saveReviewsButton.Location = new System.Drawing.Point(547, 474);
+            this.saveReviewsButton.Name = "saveReviewsButton";
+            this.saveReviewsButton.Size = new System.Drawing.Size(130, 23);
+            this.saveReviewsButton.TabIndex = 9;
+            this.saveReviewsButton.Text = "Сохранить";
+            this.saveReviewsButton.UseVisualStyleBackColor = true;
+            this.saveReviewsButton.Click += new System.EventHandler(this.saveReviewsButton_Click);
+            // 
+            // saveReviewsTextBox
+            // 
+            this.saveReviewsTextBox.Location = new System.Drawing.Point(320, 475);
+            this.saveReviewsTextBox.Name = "saveReviewsTextBox";
+            this.saveReviewsTextBox.Size = new System.Drawing.Size(200, 22);
+            this.saveReviewsTextBox.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(21, 471);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(208, 25);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Сохранить отзывы в ";
+            // 
+            // debugButton
+            // 
+            this.debugButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.debugButton.ForeColor = System.Drawing.Color.Black;
+            this.debugButton.Location = new System.Drawing.Point(772, 427);
+            this.debugButton.Name = "debugButton";
+            this.debugButton.Size = new System.Drawing.Size(165, 69);
+            this.debugButton.TabIndex = 12;
+            this.debugButton.Text = "Режим отладки";
+            this.debugButton.UseVisualStyleBackColor = false;
+            this.debugButton.Click += new System.EventHandler(this.debugButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(975, 573);
+            this.Controls.Add(this.debugButton);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.saveReviewsTextBox);
+            this.Controls.Add(this.saveUsersTextBox);
+            this.Controls.Add(this.saveReviewsButton);
+            this.Controls.Add(this.saveUsersButton);
+            this.Controls.Add(this.addReviewButton);
+            this.Controls.Add(this.addUserButton);
             this.Controls.Add(this.createReportButton);
             this.Controls.Add(this.reviewScanButton);
             this.Controls.Add(this.userScanButton);
@@ -133,6 +237,15 @@
         private System.Windows.Forms.Button userScanButton;
         private System.Windows.Forms.Button reviewScanButton;
         private System.Windows.Forms.Button createReportButton;
+        private System.Windows.Forms.Button addUserButton;
+        private System.Windows.Forms.Button addReviewButton;
+        private System.Windows.Forms.Button saveUsersButton;
+        private System.Windows.Forms.TextBox saveUsersTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button saveReviewsButton;
+        private System.Windows.Forms.TextBox saveReviewsTextBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button debugButton;
     }
 }
 

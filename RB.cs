@@ -9,31 +9,6 @@ namespace RedBlackTree
     }
     
 
-    public struct Date
-    {
-        public int Day;
-        public int Month;
-
-        /*public Date()
-        { 
-            Day = 0;
-            Month = 0;
-        }*/
-        public Date(int day, int month)
-        {
-            Day = day;
-            Month = month;
-        }
-        public void Print()
-        {
-            Console.Write(Day.ToString() + ":" + Month.ToString() + ";");
-        }
-        public void Set(int day, int month)
-        {
-            Day = day;
-            Month = month;
-        }
-    }
     public class Node
     {
         public Node Left;
@@ -240,6 +215,7 @@ namespace RedBlackTree
         public MyList.MyList GetListWithPhoneNumber(string foundedPhoneNumber)
         {
             var tmp = GetExistingNode(new Review { dish = "", name = "", phoneNumber = foundedPhoneNumber, rate = 0, time = new DateTime() });
+            if (tmp == null) { return null; }
             return tmp.Date;
         }
         public void Delete(Review date) //Удаление элемента из дерева
@@ -502,6 +478,25 @@ namespace RedBlackTree
                 element.Date.Print();
                 Console.Write(' ');
                 InOrderWalk(element.Right);
+            }
+        }
+        public void InOrder(in System.IO.StreamWriter file)
+        {
+            InOrderWalk(head, file);
+        }
+        private void InOrderWalk(Node element, in System.IO.StreamWriter file)
+        {
+            if (element != null)
+            {
+                InOrderWalk(element.Left, in file);
+                var cur = element.Date.head;
+                while (cur != null)
+                {
+                    file.WriteLine($"{cur.data.name};{cur.data.time.Year}_{cur.data.time.Month}_{cur.data.time.Day}_{cur.data.time.Hour}_" +
+                        $"{cur.data.time.Minute}_{cur.data.time.Second};{cur.data.dish};{cur.data.rate};{cur.data.phoneNumber}");
+                    cur = cur.next;
+                }
+                InOrderWalk(element.Right, in file);
             }
         }
         public void InOrderInverted() //Прямой инвертированный обход

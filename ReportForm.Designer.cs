@@ -91,6 +91,7 @@
             this.Controls.Add(this.infoLabel1);
             this.Name = "ReportForm";
             this.Text = "ReportForm";
+            this.Load += new System.EventHandler(this.ReportForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

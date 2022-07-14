@@ -26,10 +26,38 @@ namespace WindowsFormsApp1
 
         private void createReportButton_Click(object sender, EventArgs e)
         {
+            
             string fileName = "C:/Users/sergm/source/repos/WindowsFormsApp1/" + fileNameTextBox.Text + ".txt";
-            StreamWriter file = new StreamWriter(fileName);
+            StreamWriter file;
+            try
+            {
+                 file = new StreamWriter(fileName);
+            }
+            catch (System.IO.IOException)
+            {
+                MessageBox.Show("Данный файл используется другим потоком, попробуйте позже или перезапустите программу", "Ошибка");
+                return;
+            }
+            if (Program.hashTable.IsEmpty() || Program.tree.IsEmpty()) 
+            {
+                MessageBox.Show(
+                "Отчет сформирован", "Успех!", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                return;
+            }
             string foundedPhoneNumber = Program.hashTable.SearchPhoneNumber(nameTextBox.Text);
+            if (foundedPhoneNumber == null)
+            {                
+                MessageBox.Show(
+                "Отчет сформирован", "Успех!", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                return;
+            }
             var foundedList = Program.tree.GetListWithPhoneNumber(foundedPhoneNumber);
+            if (foundedList == null)
+            {
+                MessageBox.Show(
+                "Отчет сформирован", "Успех!", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                return;
+            }
             MyList.ListNode cur = foundedList.head;
             
             while (cur != null)
@@ -41,6 +69,11 @@ namespace WindowsFormsApp1
             file.Close();
             MessageBox.Show(
                 "Отчет сформирован", "Успех!", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+        }
+
+        private void ReportForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

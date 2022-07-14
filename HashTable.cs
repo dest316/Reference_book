@@ -21,6 +21,10 @@ namespace Laba7__HashTable_
             this.nickname = nickname;
             this.password = password;
         }
+        public override string ToString()
+        {
+            return $"{nickname} {password} {phoneNumber}";
+        }
     }
     public class HashTableNode
     {
@@ -64,6 +68,7 @@ namespace Laba7__HashTable_
             }
         }
         public HashTableNode[] GetElements() => elements;
+        public int GetCapacity() => capacity;
         public int TestHash(User number)
         {
             var nickname = number.nickname;
@@ -80,15 +85,17 @@ namespace Laba7__HashTable_
             if (index > (capacity - 1)) { index -= capacity; }
             return index;
         }
+        public bool IsEmpty() => length == 0;
         public int Add(User newUser)
         {
             var hash = TestHash(newUser);
             var step = 1; //пока захардкодил 2
-            if (newUser.nickname == elements[hash].data.nickname && newUser.phoneNumber == elements[hash].data.phoneNumber) { return -1; }
+            bool samePhoneNumber = IsNumberInTable(newUser.phoneNumber);
+            if (newUser.nickname == elements[hash].data.nickname || samePhoneNumber) { return -1; }
             while (elements[hash].state == 1)
             {
                 hash = SecondHash(step, hash);
-                if (newUser.nickname == elements[hash].data.nickname && newUser.phoneNumber == elements[hash].data.phoneNumber) { return -1; }
+                if (newUser.nickname == elements[hash].data.nickname || newUser.phoneNumber == elements[hash].data.phoneNumber) { return -1; }
             }
             elements[hash].data = newUser;
             elements[hash].key = newUser.phoneNumber;
@@ -125,6 +132,15 @@ namespace Laba7__HashTable_
                 }
                 hash = SecondHash(step, hash);
             }
+        }
+        public bool IsNumberInTable(string number)
+        {
+            bool samePhoneNumber = false;
+            for (int i = 0; i < capacity; i++)
+            {
+                if (number == elements[i].data.phoneNumber) { samePhoneNumber = true; }
+            }
+            return samePhoneNumber;
         }
         public int Search(User soughtUser)
         {

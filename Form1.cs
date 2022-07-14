@@ -45,22 +45,26 @@ namespace WindowsFormsApp1
 
         private void userScanButton_Click(object sender, EventArgs e)
         {
-            Program.hashTable.Clear();
             string fileName = "C:/Users/sergm/source/repos/WindowsFormsApp1/" + userFileName.Text + ".txt";
             try
             {
+                var choise = MessageBox.Show("Все ранее добавленные посетители будут удалены. Вы точно хотите продолжить?", "Предупреждение",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (choise == DialogResult.No) { return; }
+                Program.hashTable.Clear();
                 StreamReader file = new StreamReader(fileName);
                 string buffer = "";
                 while (true)
                 {
                     buffer = file.ReadLine();
-                    if (buffer == null) { break; }
+                    if (buffer == null || buffer == "") { break; }
                     User newUser = UserFileParse(buffer);
                     if (Program.hashTable.Add(newUser) == -1)
                     {
                         //добавить запись в лог.
                     }
                 }
+                file.Close();
             }
             catch(System.IO.FileNotFoundException)
             {
@@ -72,6 +76,14 @@ namespace WindowsFormsApp1
 
         private void reviewScanButton_Click(object sender, EventArgs e)
         {
+            var choise = MessageBox.Show("Все ранее добавленные отзывы будут удалены. Вы точно хотите продолжить?", "Предупреждение",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (choise == DialogResult.No) { return; }
+            if (Program.hashTable.IsEmpty())
+            {
+                MessageBox.Show("В справочнике нет ни одного посетителя, записать отзывы не получится", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             Program.tree.Clear();
             string fileName = "C:/Users/sergm/source/repos/WindowsFormsApp1/" + reviewFileName.Text + ".txt";
             try
@@ -81,14 +93,17 @@ namespace WindowsFormsApp1
                 while (true)
                 {
                     buffer = file.ReadLine();
-                    if (buffer == null) { break; }
+                    if (buffer == null || buffer == "") { break; }
                     Review newReview = ReviewFileParse(buffer);
-                    Program.tree.Add(newReview);
+                    if (Program.hashTable.IsNumberInTable(newReview.phoneNumber))
+                        Program.tree.Add(newReview);
                 }
+                file.Close();
                 
             }
             catch (System.IO.FileNotFoundException)
             {
+      
                 MessageBox.Show(
                     "Данного файла не существует", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
             }
@@ -98,6 +113,50 @@ namespace WindowsFormsApp1
         {
             ReportForm reportForm = new ReportForm();
             reportForm.Show();
+        }
+
+        private void addUserButton_Click(object sender, EventArgs e)
+        {
+            AddUserForm addUserForm = new AddUserForm();
+            addUserForm.Show();
+        }
+
+        private void addReviewButton_Click(object sender, EventArgs e)
+        {
+            AddReviewForm addReviewForm = new AddReviewForm();
+            addReviewForm.Show();
+        }
+
+        private void saveUsersButton_Click(object sender, EventArgs e)
+        {
+            string fileName = "C:/Users/sergm/source/repos/WindowsFormsApp1/" + saveUsersTextBox.Text + ".txt";
+            StreamWriter file = new StreamWriter(fileName);
+            for (int i = 0; i < Program.hashTable.GetCapacity(); i++)
+            {
+                if (Program.hashTable.GetElements()[i].state == 1)
+                {
+                    file.WriteLine($"{Program.hashTable.GetElements()[i].data.nickname};{Program.hashTable.GetElements()[i].data.password};" +
+                        $"{Program.hashTable.GetElements()[i].data.phoneNumber}");
+                }
+            }
+            file.Close();
+            MessageBox.Show("Файл удалось сохранить", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
+        }
+        private void saveReviewsButton_Click(object sender, EventArgs e)
+        {
+            string fileName = "C:/Users/sergm/source/repos/WindowsFormsApp1/" + saveReviewsTextBox.Text + ".txt";
+            StreamWriter file = new StreamWriter(fileName);
+            Program.tree.InOrder(in file);
+            file.Close();
+            MessageBox.Show("Файл удалось сохранить", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
+        }
+
+        private void debugButton_Click(object sender, EventArgs e)
+        {
+            DebugForm debugForm = new DebugForm();
+            debugForm.Show();
         }
     }
 }
